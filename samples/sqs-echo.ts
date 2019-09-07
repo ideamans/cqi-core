@@ -6,6 +6,7 @@ const Config = require('./config.json')
 async function main() {
   const cqi = CQI.instance
   cqi.config.logLevel = LogLevel.Verbose
+  cqi.config.jsonic = true
 
   const listener = cqi.factory.listeners.create('sqs', {
     region: Config.region,

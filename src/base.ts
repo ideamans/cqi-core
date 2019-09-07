@@ -54,8 +54,7 @@ export class CQI {
   }
 
   readonly config = {
-    allowNotJson: false,
-    normalizeJsonic: true,
+    jsonic: false,
     logLevel: LogLevel.Normal,
   }
 
@@ -163,14 +162,6 @@ export class Container extends Component implements ContainerInterface {
     this.dispatcher = options.dispatcher
   }
 
-  async normalizeMessage(message: string) {
-    if (this.cqi.config.normalizeJsonic) {
-      const obj = Jsonic(message)
-      message = JSON.stringify(obj)
-    }
-    return message
-  }
-
   async init(): Promise<void> {}
 
   async run(): Promise<void> {
@@ -179,18 +170,14 @@ export class Container extends Component implements ContainerInterface {
     await this.listener.run(async (message: string) => {
       this.cqi.logger.debug(message, 'onMessage')
 
-      const normalizer = this.cqi.config.normalizeJsonic ? Jsonic : JSON.parse
-      const format = this.cqi.config.normalizeJsonic ? 'jsonic' : 'JSON'
+      const normalizer = this.cqi.config.jsonic ? Jsonic : JSON.parse
+      const format = this.cqi.config.jsonic ? 'jsonic' : 'JSON'
       try {
         const obj = normalizer(message)
         message = JSON.stringify(obj)
       } catch(ex) {
-        if (this.cqi.config.allowNotJson) {
-          this.cqi.logger.debug(`Failed to parse as ${format}: ${message} (${ex.message})`)
-        } else {
-          this.cqi.logger.error(`Failed to parse as ${format}: ${message} (${ex.message})`)
-          return true
-        }
+        this.cqi.logger.error(`Failed to parse as ${format}: ${message} (${ex.message})`)
+        return true
       }
 
       return await this.dispatcher.dispatch(message)
