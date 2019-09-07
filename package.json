@@ -1,0 +1,30 @@
+{
+  "name": "cqi-core",
+  "version": "0.2.2",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "description": "Common Queue Interface inspired by CGI.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ideamans/node-cqi-core.git"
+  },
+  "homepage": "https://github.com/ideamans/node-cqi-core",
+  "author": "Kunihiko Miyanaga <miyanaga@ideamans.com>",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.521.0",
+    "execa": "^2.0.4",
+    "jsonic": "^0.3.1",
+    "node-line-reader": "^0.0.3",
+    "sqs-consumer": "^5.3.0"
+  }
+}

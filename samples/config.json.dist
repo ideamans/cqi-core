@@ -1,0 +1,4 @@
+{
+  "region": "your-region-1",
+  "queueUrl": "https://sqs.your-region-1.amazonaws.com/ACCOUNT/QUEUE"
+}
