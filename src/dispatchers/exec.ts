@@ -4,7 +4,7 @@ const { LineTransform } = require('node-line-reader')
 
 export class ExecDispatcher extends SubProcessDispatcher {
   async dispatch(message: string): Promise<boolean> {
-    this.cqi.logger.debug(`starting ${this.programFilePath} with ` + this.programArgs.map(arg => `"${arg}"`).join(' '), 'execa')
+    this.cqi.logger.debug(`starting ${this.programPath} with ` + this.programArgs.map(arg => `"${arg}"`).join(' '), 'execa')
 
     const proc = this.execa()
 

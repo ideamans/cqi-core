@@ -10,7 +10,7 @@ async function main() {
     messages: [...Array(1000).keys()].map(i => `{"text":"m ${i}"}`)
   })
   const dispatcher = cqi.factory.dispatchers.create('stdio', {
-    programFilePath: Path.join(__dirname, 'stdio.pl'),
+    programPath: Path.join(__dirname, 'stdio.pl'),
     maxBuffer: 10,
   })
 

@@ -8,7 +8,7 @@ async function main() {
 
   const listener = cqi.factory.listeners.create('repl')
   const dispatcher = cqi.factory.dispatchers.create('stdio', {
-    programFilePath: Path.join(__dirname, 'stdio.pl')
+    programPath: Path.join(__dirname, 'stdio.pl')
   })
 
   await cqi.runDefaultContainer(listener, dispatcher)

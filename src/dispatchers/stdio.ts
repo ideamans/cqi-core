@@ -6,7 +6,7 @@ export class StdioDispatcher extends SubProcessDispatcher {
   proc?: any
 
   async start(): Promise<void> {
-    this.cqi.logger.debug(`starting ${this.programFilePath} with ` + this.programArgs.map(arg => `"${arg}"`).join(' '), 'execa')
+    this.cqi.logger.debug(`starting ${this.programPath} with ` + this.programArgs.map(arg => `"${arg}"`).join(' '), 'execa')
 
     // Start new process and STDERR log as info
     this.proc = this.execa({ timeout: 0 })
