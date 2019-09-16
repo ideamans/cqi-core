@@ -6,7 +6,7 @@ export class ExecDispatcher extends SubProcessDispatcher {
   async dispatch(message: string): Promise<boolean> {
     this.cqi.logger.debug(`starting ${this.programFilePath} with ` + this.programArgs.map(arg => `"${arg}"`).join(' '), 'execa')
 
-    const proc = this.execa({ timeout: this.timeout })
+    const proc = this.execa()
 
     // STDOUT, STDERR log as info
     if (proc.stdout) {

@@ -9,7 +9,7 @@ export class StdioDispatcher extends SubProcessDispatcher {
     this.cqi.logger.debug(`starting ${this.programFilePath} with ` + this.programArgs.map(arg => `"${arg}"`).join(' '), 'execa')
 
     // Start new process and STDERR log as info
-    this.proc = this.execa({ timeout: 0, maxBuffer: 100 })
+    this.proc = this.execa({ timeout: 0 })
 
     // STDIN and STDOUT required
     if (!this.proc.stdin) throw new Error('STDIN not opened')
@@ -36,8 +36,9 @@ export class StdioDispatcher extends SubProcessDispatcher {
       this.proc.stdout.read()
 
       // Read data once
-      this.proc.stdout.once('data', (data: Buffer) => {
-        const result = data.toString().replace(/\n+$/, '')
+      this.proc.stdout.once('readable', () => {
+        const data = this.proc.stdout.read()
+        const result = data.toString().replace(/\r?\n+$/, '')
         if (result == '') {
           // Blank STDOUT means success
           this.cqi.logger.debug(`processed: ${message}`, this.programFileBasename())

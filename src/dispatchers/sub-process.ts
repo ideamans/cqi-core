@@ -23,6 +23,7 @@ export abstract class SubProcessDispatcher extends Component implements Dispatch
       stdin: 'pipe',
       stdout: 'pipe',
       stderr: 'pipe',
+      ...this,
       ...options,
     })
   }
